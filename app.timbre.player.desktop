@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Timbre
+GenericName=Music Player
+Comment=Play music from your own Jellyfin server
+Exec=timbre
+Icon=app.timbre.player
+Terminal=false
+Categories=AudioVideo;Audio;Player;
+Keywords=music;jellyfin;player;streaming;audio;
+StartupNotify=true
+StartupWMClass=app.timbre.player

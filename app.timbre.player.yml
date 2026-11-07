@@ -1,0 +1,38 @@
+app-id: app.timbre.player
+runtime: org.gnome.Platform
+runtime-version: '49'
+sdk: org.gnome.Sdk
+command: timbre
+
+finish-args:
+  - --share=network
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --share=ipc
+  - --device=dri
+  - --socket=pulseaudio
+  # WebKitGTK's DMA-BUF renderer fails on some Wayland compositors and GPUs.
+  # Fall back to shared-memory rendering so the window always opens.
+  - --env=WEBKIT_DISABLE_DMABUF_RENDERER=1
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.mpris.MediaPlayer2.*
+  - --talk-name=org.gtk.vfs.*
+  - --filesystem=xdg-run/gvfsd
+
+modules:
+  - name: timbre
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 timbre /app/bin/timbre
+      - install -Dm644 app.timbre.player.desktop /app/share/applications/app.timbre.player.desktop
+      - install -Dm644 app.timbre.player.metainfo.xml /app/share/metainfo/app.timbre.player.metainfo.xml
+      - install -Dm644 app.timbre.player.png /app/share/icons/hicolor/512x512/apps/app.timbre.player.png
+    sources:
+      - type: file
+        path: timbre
+      - type: file
+        path: app.timbre.player.desktop
+      - type: file
+        path: app.timbre.player.metainfo.xml
+      - type: file
+        path: app.timbre.player.png
